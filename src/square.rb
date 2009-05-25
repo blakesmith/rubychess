@@ -3,8 +3,8 @@ class Square
   attr_accessor :coordinates, :piece, :color
 
   def initialize(color=nil, coordinates=nil)
-    self.color = color
-    self.coordinates = coordinates
+    @color = color
+    @coordinates = coordinates
   end
 
   def is_empty
@@ -12,6 +12,13 @@ class Square
       true
     else
       false
+    end
+  end
+
+  def inspect
+    cords = { 1 => 'a', 2 => 'b', 3 => 'c', 4 => 'd', 5 => 'e', 6 => 'f', 7 => 'g', 8 => 'h' }
+    if not @color.nil? and not @coordinates.nil?
+      cords[@coordinates[0]] + @coordinates[1].to_s + ': ' + @color
     end
   end
 
