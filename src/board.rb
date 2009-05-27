@@ -1,4 +1,12 @@
+$LOAD_PATH << './pieces'
+
 require 'square'
+require 'pawn'
+require 'knight'
+require 'bishop'
+require 'rook'
+require 'queen'
+require 'king'
 
 class Board
   attr_accessor :squares
@@ -7,6 +15,7 @@ class Board
     @squares = []
     create_squares
     make_connections
+    create_pieces
   end
 
   def create_squares
@@ -52,4 +61,35 @@ class Board
     end
   end
 
+  def create_pieces
+    #white pawns
+    for square in 8..15
+      @squares[square].piece = Pawn.new 'white'
+    end
+
+    #black pawns
+    for square in 48..55
+      @squares[square].piece = Pawn.new 'black'
+    end
+
+    #white royalty
+    @squares[0].piece = Rook.new 'white'
+    @squares[1].piece = Knight.new 'white'
+    @squares[2].piece = Bishop.new 'white'
+    @squares[3].piece = Queen.new 'white'
+    @squares[4].piece = King.new 'white'
+    @squares[5].piece = Bishop.new 'white'
+    @squares[6].piece = Knight.new 'white'
+    @squares[7].piece = Rook.new 'white'
+
+    #black royalty
+    @squares[56].piece = Rook.new 'black'
+    @squares[57].piece = Knight.new 'black'
+    @squares[58].piece = Bishop.new 'black'
+    @squares[59].piece = Queen.new 'black'
+    @squares[60].piece = King.new 'black'
+    @squares[61].piece = Bishop.new 'black'
+    @squares[62].piece = Knight.new 'black'
+    @squares[63].piece = Rook.new 'black'
+  end
 end
