@@ -7,7 +7,7 @@ class Square
     @coordinates = coordinates
   end
 
-  def is_empty
+  def empty?
     if @piece.nil?
       true
     else
