@@ -91,5 +91,15 @@ class Board
     @squares[61].piece = Bishop.new 'black'
     @squares[62].piece = Knight.new 'black'
     @squares[63].piece = Rook.new 'black'
+
+    #Add white square pointers to pieces
+    for square in 0..15
+      @squares[square].piece.square = @squares[square]
+    end
+    
+    #Add black square pointers to pieces
+    for square in 48..63
+      @squares[square].piece.square = @squares[square]
+    end
   end
 end

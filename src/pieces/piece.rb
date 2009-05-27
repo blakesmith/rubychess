@@ -1,7 +1,5 @@
 class Piece
-  attr_accessor :piece
-  attr_accessor :value
-  attr_accessor :color
+  attr_accessor :piece, :value, :color, :square
 
   def initialize(color)
     @color = color
