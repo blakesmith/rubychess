@@ -19,11 +19,13 @@ class Board
   end
 
   def find_square(grid)
+    found = nil
     @squares.each do |square|
       if square.get_grid == grid
-        return square
+        found = square
       end
     end
+    found
   end
 
   def create_squares
