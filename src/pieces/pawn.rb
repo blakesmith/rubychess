@@ -6,13 +6,21 @@ class Pawn < Piece
     #En passant handled by the game class each move? Not sure yet.
     moves = []
     if @color == 'white'
-      move_two_squares = @square.top.top
       move_one_square = @square.top #Normal 1 piece move
+      if not move_one_square.nil?
+        move_two_squares = @square.top.top
+      else
+        move_two_squares = nil
+      end
       capture_diagonal = [@square.top_right, @square.top_left]
     end
     if @color == 'black' 
-      move_two_squares = @square.bottom.bottom
       move_one_square = @square.bottom #Normal 1 piece move
+      if not move_one_square.nil?
+        move_two_squares = @square.bottom.bottom
+      else
+        move_two_squares = nil
+      end
       capture_diagonal = [@square.bot_right, @square.bot_left]
     end
     if @move_count == 0 #First move of the game.
@@ -39,5 +47,4 @@ class Pawn < Piece
     moves
   end
   
-
 end

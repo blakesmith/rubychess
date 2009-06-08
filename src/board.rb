@@ -9,23 +9,52 @@ require 'queen'
 require 'king'
 
 class Board
-  attr_accessor :squares
+  attr_accessor :squares, :captured_pieces
 
   def initialize
     @squares = []
+    @captured_pieces = { :black => [], :white => [] }
     create_squares
     make_connections
     create_pieces
   end
 
+  #Returns the found square for the given grid coordinates: For example, find_square "h3" will return the instance of the square object at location "h3".
   def find_square(grid)
     found = nil
     @squares.each do |square|
-      if square.get_grid == grid
+      if square.get_grid == grid.downcase
         found = square
       end
     end
     found
+  end
+
+  #Execute an actual valid_move on the board. Both inputs must be square objects.
+  def do_move(from, to)
+    raise "There is no piece at that location" if from.empty?
+    raise "That is not a legal move." if not from.piece.valid_moves.include?(to)
+    #Lets see if the destination square has an existing piece, if so, it's a capture. 
+    if not to.empty?
+
+      #Get the color of the piece being captured, so we can add it to the opposing colors 'captured_pieces'
+      capture = true
+      if to.piece.color == "white"
+        @captured_pieces[:black].push(to.piece)
+      else
+        @captured_pieces[:white].push(to.piece)
+      end
+    end
+    if capture
+      to.piece.square = nil  #Captured piece goes to @captured_pieces, so no square reference.
+    end
+
+    #Do the actual moving.
+    to.piece = from.piece
+    to.piece.move_count += 1
+    to.piece.square = to #Update the reference to the square the piece is on.
+    from.piece = nil
+    true
   end
 
   def create_squares
