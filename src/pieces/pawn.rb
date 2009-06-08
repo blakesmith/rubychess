@@ -16,17 +16,23 @@ class Pawn < Piece
       capture_diagonal = [@square.bot_right, @square.bot_left]
     end
     if @move_count == 0 #First move of the game.
-      if move_two_squares.empty? and move_one_square.empty? 
-        moves.push move_two_squares
+      if not move_two_squares.nil? and not move_one_square.nil? #Make sure the piece doesn't run off the board.
+        if move_two_squares.empty? and move_one_square.empty?
+          moves.push move_two_squares
+        end
       end
     end
-    if move_one_square.empty?
-      moves.push move_one_square
+    if not move_one_square.nil? #Piece running off the board.
+      if move_one_square.empty?
+        moves.push move_one_square
+      end
     end
     capture_diagonal.each do |square| #Diagonal capture
-      if not square.empty?
-        if square.piece.color != @color
-          moves.push square
+      if not square.nil?
+        if not square.empty?
+          if square.piece.color != @color
+            moves.push square
+          end
         end
       end
     end

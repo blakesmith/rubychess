@@ -15,10 +15,16 @@ class Square
     end
   end
 
-  def inspect
+  def get_grid
     cords = { 1 => 'a', 2 => 'b', 3 => 'c', 4 => 'd', 5 => 'e', 6 => 'f', 7 => 'g', 8 => 'h' }
+    if not @coordinates.nil?
+      cords[@coordinates[0]] + @coordinates[1].to_s
+    end
+  end
+
+  def inspect
     if not @color.nil? and not @coordinates.nil?
-      cords[@coordinates[0]] + @coordinates[1].to_s + ': ' + @color
+      self.get_grid + ': ' + @color
     end
   end
 

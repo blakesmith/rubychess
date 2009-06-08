@@ -18,6 +18,14 @@ class Board
     create_pieces
   end
 
+  def find_square(grid)
+    @squares.each do |square|
+      if square.get_grid == grid
+        return square
+      end
+    end
+  end
+
   def create_squares
     for column in 1..8
       for row in 1..8
