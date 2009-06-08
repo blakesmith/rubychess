@@ -1,0 +1,4 @@
+Decompose Pawn 'valid_moves' into smaller methods for clarity.
+Convert moves into a 'Move' object.
+Make Board method to accept 'Chess notation' moves.
+Pretty printout of chess board for easier debugging.
