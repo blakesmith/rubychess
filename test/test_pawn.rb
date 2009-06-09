@@ -18,4 +18,12 @@ class TestPawn < Test::Unit::TestCase
     end
   end
 
+  #Tests whether white and black can both move 2 squares in the opening position of the game.
+  def test_pawn_initial_double_move
+    assert_nothing_raised(RuntimeError) do 
+      @board.do_move(@board.find_square('d2'), @board.find_square('d4'))
+      @board.do_move(@board.find_square('d7'), @board.find_square('d5'))
+    end
+  end
+
 end
