@@ -18,8 +18,4 @@ class TestPawn < Test::Unit::TestCase
     end
   end
 
-  def test_square_count
-    assert_equal(64, @board.squares.length)
-  end
-
 end
