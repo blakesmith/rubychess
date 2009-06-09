@@ -1,3 +1,4 @@
+$LOAD_PATH << './lib/pieces'
 $LOAD_PATH << './pieces'
 
 require 'square'
