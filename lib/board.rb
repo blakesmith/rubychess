@@ -22,13 +22,9 @@ class Board
 
   #Returns the found square for the given grid coordinates: For example, find_square "h3" will return the instance of the square object at location "h3".
   def find_square(grid)
-    found = nil
-    @squares.each do |square|
-      if square.get_grid == grid.downcase
-        found = square
-      end
+    @squares.detect do |square|
+       square.get_grid == grid.downcase
     end
-    found
   end
 
   #Execute an actual valid_move on the board. Both inputs must be square objects.
