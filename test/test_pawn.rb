@@ -26,4 +26,14 @@ class TestPawn < Test::Unit::TestCase
     end
   end
 
+  def test_pawn_capture
+    assert_nothing_raised(RuntimeError) do 
+      @board.do_move(@board.find_square('d2'), @board.find_square('d4'))
+      @board.do_move(@board.find_square('e7'), @board.find_square('e5'))
+      @board.do_move(@board.find_square('d4'), @board.find_square('e5'))
+    end
+    assert_equal(@board.find_square('e5').piece.move_count, 2) #Internal move count is correct
+    assert_equal(@board.captured_pieces[:white].length, 1) #Make sure the piece was removed from the board.
+  end
+
 end
