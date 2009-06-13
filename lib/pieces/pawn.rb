@@ -24,28 +24,26 @@ class Pawn < Piece
   end
 
   def check_two_squares
-    moves = []
     if @move_count == 0 #First move of the game.
       if not @@move_two_squares.nil? and not @@move_one_square.nil? #Make sure the piece doesn't run off the board.
         if @@move_two_squares.empty? and @@move_one_square.empty?
-          moves.push @@move_two_squares
+          [@@move_two_squares]
         end
       end
     end
   end
 
   def check_one_square
-    moves = []
     if not @@move_one_square.nil? #Piece running off the board.
       if @@move_one_square.empty?
-        moves.push @@move_one_square
+        [@@move_one_square]
       end
     end
   end
 
   def diagonal_capture
     moves = []
-    @@capture_diagonal.each do |square| #Diagonal capture
+    @@capture_diagonal.find_all do |square| #Diagonal capture
       if not square.nil?
         if not square.empty?
           if square.piece.color != @color
@@ -53,18 +51,24 @@ class Pawn < Piece
           end
         end
       end
+      if moves.empty?
+        false
+      else
+        moves
+      end
     end
   end
 
   def valid_moves
     #En passant handled by the game class each move? Not sure yet.
-    @@moves = []
+    moves = []
     setup_color
     [check_two_squares, check_one_square, diagonal_capture].each do |test|
       if not test.nil?
-        test.collect {|array| not array.nil?}
+        test.each {|move| moves.push move if not move.nil?}
       end
     end
+    moves
   end
   
 end
