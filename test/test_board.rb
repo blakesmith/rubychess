@@ -26,8 +26,10 @@ class TestBoard < Test::Unit::TestCase
 
   def test_spawn
     @board.spawn(Pawn, 'white', 'd4')
-    assert_equal(@board.find_square('d4').piece.move_count, 1)
+    assert_equal(@board.find_square('d4').piece.move_count, 0)
     assert_equal(@board.find_square('d4'), @board.find_square('d4').piece.square)
+    @board.spawn(Pawn, 'white', 'd4', 1)
+    assert_equal(@board.find_square('d4').piece.move_count, 1)
   end
 
 end

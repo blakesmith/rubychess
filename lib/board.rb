@@ -27,11 +27,11 @@ class Board
     end
   end
 
-  def spawn(piece, color, square)
+  def spawn(piece, color, square, move_count=0)
     new_piece = piece.new color
     target_square = self.find_square(square) 
     new_piece.square = target_square
-    new_piece.move_count = 1
+    new_piece.move_count = move_count
     target_square.piece = new_piece
     new_piece
   end
