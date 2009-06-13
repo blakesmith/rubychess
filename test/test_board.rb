@@ -21,6 +21,7 @@ class TestBoard < Test::Unit::TestCase
   def test_find_square
     assert_equal(@board.find_square("d1"), @board.squares[3])
     assert_equal(@board.find_square("d2"), @board.squares[11])
+    assert_nil(@board.find_square("foo"))
   end
 
 end

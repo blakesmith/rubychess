@@ -2,40 +2,50 @@ require 'piece'
 
 class Pawn < Piece
 
-  def valid_moves
-    #En passant handled by the game class each move? Not sure yet.
-    moves = []
+  def setup_color
     if @color == 'white'
-      move_one_square = @square.top #Normal 1 piece move
-      if not move_one_square.nil?
-        move_two_squares = @square.top.top
+      @@move_one_square = @square.top #Normal 1 piece move
+      if not @@move_one_square.nil?
+        @@move_two_squares = @square.top.top
       else
-        move_two_squares = nil
+        @@move_two_squares = nil
       end
-      capture_diagonal = [@square.top_right, @square.top_left]
+      @@capture_diagonal = [@square.top_right, @square.top_left]
     end
     if @color == 'black' 
-      move_one_square = @square.bottom #Normal 1 piece move
-      if not move_one_square.nil?
-        move_two_squares = @square.bottom.bottom
+      @@move_one_square = @square.bottom #Normal 1 piece move
+      if not @@move_one_square.nil?
+        @@move_two_squares = @square.bottom.bottom
       else
-        move_two_squares = nil
+        @@move_two_squares = nil
       end
-      capture_diagonal = [@square.bot_right, @square.bot_left]
+      @@capture_diagonal = [@square.bot_right, @square.bot_left]
     end
+  end
+
+  def check_two_squares
+    moves = []
     if @move_count == 0 #First move of the game.
-      if not move_two_squares.nil? and not move_one_square.nil? #Make sure the piece doesn't run off the board.
-        if move_two_squares.empty? and move_one_square.empty?
-          moves.push move_two_squares
+      if not @@move_two_squares.nil? and not @@move_one_square.nil? #Make sure the piece doesn't run off the board.
+        if @@move_two_squares.empty? and @@move_one_square.empty?
+          moves.push @@move_two_squares
         end
       end
     end
-    if not move_one_square.nil? #Piece running off the board.
-      if move_one_square.empty?
-        moves.push move_one_square
+  end
+
+  def check_one_square
+    moves = []
+    if not @@move_one_square.nil? #Piece running off the board.
+      if @@move_one_square.empty?
+        moves.push @@move_one_square
       end
     end
-    capture_diagonal.each do |square| #Diagonal capture
+  end
+
+  def diagonal_capture
+    moves = []
+    @@capture_diagonal.each do |square| #Diagonal capture
       if not square.nil?
         if not square.empty?
           if square.piece.color != @color
@@ -44,7 +54,17 @@ class Pawn < Piece
         end
       end
     end
-    moves
+  end
+
+  def valid_moves
+    #En passant handled by the game class each move? Not sure yet.
+    @@moves = []
+    setup_color
+    [check_two_squares, check_one_square, diagonal_capture].each do |test|
+      if not test.nil?
+        test.collect {|array| not array.nil?}
+      end
+    end
   end
   
 end
