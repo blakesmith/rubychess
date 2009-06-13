@@ -38,8 +38,8 @@ class Board
 
   #Execute an actual valid_move on the board. Both inputs must be square objects.
   def do_move(from, to)
-    raise RuntimeError "There is no piece at that location" if from.empty?
-    raise RuntimeError "That is not a legal move." if not from.piece.valid_moves.include?(to)
+    raise RuntimeError.new "There is no piece at that location" if from.empty?
+    raise RuntimeError.new "That is not a legal move." if not from.piece.valid_moves.include?(to)
     #Lets see if the destination square has an existing piece, if so, it's a capture. 
     if not to.empty?
 

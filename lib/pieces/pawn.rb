@@ -21,6 +21,7 @@ class Pawn < Piece
       end
       @@capture_diagonal = [@square.bot_right, @square.bot_left]
     end
+    @@en_passant = [@square.left, @square.right]
   end
 
   def check_two_squares
@@ -57,6 +58,23 @@ class Pawn < Piece
         moves
       end
     end
+  end
+
+  #En Passant pawn move. This will add valid en passant moves if the position for the pawn is correct.
+  #The Game engine that keeps track of move history has the final decision about whether the move is
+  #legal
+  def check_en_passant
+    moves = []
+    @@en_passant.find_all do |square|
+      if square.piece.class == Pawn and square.color != @color
+        if square == @square.left
+          moves.push @square.top_left
+        elsif square == @square.right
+          moves.push @square.top_right
+        end
+      end
+    end
+    moves
   end
 
 end

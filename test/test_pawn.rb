@@ -24,6 +24,7 @@ class TestPawn < Test::Unit::TestCase
       @board.do_move(@board.find_square('d2'), @board.find_square('d4'))
       @board.do_move(@board.find_square('d7'), @board.find_square('d5'))
     end
+    assert_raise(RuntimeError) { @board.do_move(@board.find_square('d4'), @board.find_square('c5')) }
   end
 
   def test_pawn_capture
@@ -56,6 +57,13 @@ class TestPawn < Test::Unit::TestCase
       @board.do_move(@board.find_square('e2'), @board.find_square('d1'))
     end
     assert_equal(@board.captured_pieces[:black].length, 2)
+  end
+
+  def test_en_passant
+   attacker = @board.spawn(Pawn, 'white', 'd5', 1)
+   defender = @board.find_square('c7').piece 
+   @board.do_move(defender.square, @board.find_square('c5'))
+   @board.do_move(attacker.square, @board.find_square('c6'))
   end
 
 end
