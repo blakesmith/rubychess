@@ -2,7 +2,7 @@ require 'piece'
 
 class Pawn < Piece
 
-  def setup_color
+  def update
     if @color == 'white'
       @@move_one_square = @square.top #Normal 1 piece move
       if not @@move_one_square.nil?

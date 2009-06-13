@@ -6,9 +6,13 @@ class Piece
     @move_count = 0
   end
 
+  def update
+    #overide with things that need to be 'updated' on each 'valid_moves' check.
+  end
+
   def valid_moves
     moves = []
-    setup_color
+    update
     self.methods.grep(/^check_/) do |test|
       if not test.nil?
         squares = eval test

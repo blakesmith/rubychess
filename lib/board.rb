@@ -27,6 +27,15 @@ class Board
     end
   end
 
+  def spawn(piece, color, square)
+    new_piece = piece.new color
+    target_square = self.find_square(square) 
+    new_piece.square = target_square
+    new_piece.move_count = 1
+    target_square.piece = new_piece
+    new_piece
+  end
+
   #Execute an actual valid_move on the board. Both inputs must be square objects.
   def do_move(from, to)
     raise RuntimeError "There is no piece at that location" if from.empty?
