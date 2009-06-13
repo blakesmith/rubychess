@@ -61,7 +61,7 @@ class Board
   def create_squares
     for column in 1..8
       for row in 1..8
-        if (row.even? and column.even?) or (row.odd? and column.odd?)
+        if (row.modulo(2).zero? and column.modulo(2).zero?) or (not row.modulo(2).zero? and not column.modulo(2).zero?)
           color = 'black'
         else
           color = 'white'
