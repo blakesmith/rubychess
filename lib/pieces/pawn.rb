@@ -65,7 +65,7 @@ class Pawn < Piece
   #legal
   def check_en_passant
     moves = []
-    @@en_passant.find_all do |square|
+    @@en_passant.each do |square|
       if square.piece.class == Pawn and square.color != @color
         if @color == 'white'
           if square == @square.left
