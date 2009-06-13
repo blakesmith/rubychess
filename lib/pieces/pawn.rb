@@ -67,10 +67,18 @@ class Pawn < Piece
     moves = []
     @@en_passant.find_all do |square|
       if square.piece.class == Pawn and square.color != @color
-        if square == @square.left
-          moves.push @square.top_left
-        elsif square == @square.right
-          moves.push @square.top_right
+        if @color == 'white'
+          if square == @square.left
+            moves.push @square.top_left
+          elsif square == @square.right
+            moves.push @square.top_right
+          end
+        elsif @color == 'black'
+          if square == @square.left
+            moves.push @square.bot_left
+          elsif square == @square.right
+            moves.push @square.bot_right
+          end
         end
       end
     end

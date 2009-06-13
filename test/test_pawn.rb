@@ -59,11 +59,22 @@ class TestPawn < Test::Unit::TestCase
     assert_equal(@board.captured_pieces[:black].length, 2)
   end
 
-  def test_en_passant
+  def test_white_attack_en_passant
    attacker = @board.spawn(Pawn, 'white', 'd5', 1)
    defender = @board.find_square('c7').piece 
-   @board.do_move(defender.square, @board.find_square('c5'))
-   @board.do_move(attacker.square, @board.find_square('c6'))
+   assert_nothing_raised(RuntimeError) do
+     @board.do_move(defender.square, @board.find_square('c5'))
+     @board.do_move(attacker.square, @board.find_square('c6'))
+   end
+  end
+
+  def test_black_attack_en_passant
+   attacker = @board.spawn(Pawn, 'black', 'd4', 1)
+   defender = @board.find_square('e2').piece
+   assert_nothing_raised(RuntimeError) do
+     @board.do_move(defender.square, @board.find_square('e4'))
+     @board.do_move(attacker.square, @board.find_square('e3'))
+   end
   end
 
 end
