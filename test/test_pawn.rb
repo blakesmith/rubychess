@@ -36,4 +36,26 @@ class TestPawn < Test::Unit::TestCase
     assert_equal(@board.captured_pieces[:white].length, 1) #Make sure the piece was removed from the board.
   end
 
+  def test_white_attack
+    piece = @board.spawn(Pawn, 'white', 'd6')
+    assert_not_nil(piece)
+    assert_equal(piece.valid_moves, [@board.find_square('e7'), @board.find_square('c7')])
+    assert_nothing_raised(RuntimeError) do 
+      @board.do_move(@board.find_square('d6'), @board.find_square('e7'))
+      @board.do_move(@board.find_square('e7'), @board.find_square('d8'))
+    end
+    assert_equal(@board.captured_pieces[:white].length, 2)
+  end
+
+  def test_black_attack
+    piece = @board.spawn(Pawn, 'black', 'd3')
+    assert_not_nil(piece)
+    assert_equal(piece.valid_moves, [@board.find_square('e2'), @board.find_square('c2')])
+    assert_nothing_raised(RuntimeError) do 
+      @board.do_move(@board.find_square('d3'), @board.find_square('e2'))
+      @board.do_move(@board.find_square('e2'), @board.find_square('d1'))
+    end
+    assert_equal(@board.captured_pieces[:black].length, 2)
+  end
+
 end
