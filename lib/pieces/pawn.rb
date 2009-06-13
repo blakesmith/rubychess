@@ -41,7 +41,7 @@ class Pawn < Piece
     end
   end
 
-  def diagonal_capture
+  def check_diagonal_capture
     moves = []
     @@capture_diagonal.find_all do |square| #Diagonal capture
       if not square.nil?
@@ -59,16 +59,4 @@ class Pawn < Piece
     end
   end
 
-  def valid_moves
-    #En passant handled by the game class each move? Not sure yet.
-    moves = []
-    setup_color
-    [check_two_squares, check_one_square, diagonal_capture].each do |test|
-      if not test.nil?
-        test.each {|move| moves.push move if not move.nil?}
-      end
-    end
-    moves
-  end
-  
 end

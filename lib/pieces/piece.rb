@@ -7,6 +7,15 @@ class Piece
   end
 
   def valid_moves
-    #overide to add moves to the piece
+    moves = []
+    setup_color
+    self.methods.grep(/^check_/) do |test|
+      if not test.nil?
+        squares = eval test
+        squares.each { |square| moves.push square if not square.nil? } if not squares.nil?
+      end
+    end
+    moves
   end
+
 end
