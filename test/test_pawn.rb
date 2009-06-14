@@ -77,4 +77,10 @@ class TestPawn < Test::Unit::TestCase
    end
   end
 
+  def test_en_passant_false_positive
+    white = @board.spawn(Pawn, 'white', 'd5')
+    black = @board.spawn(Pawn, 'black', 'c5')
+    assert_raise(RuntimeError) { @board.do_move(white.square, @board.find_square('d5')) }
+  end
+
 end

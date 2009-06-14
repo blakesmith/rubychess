@@ -67,16 +67,18 @@ class Pawn < Piece
     moves = []
     @@en_passant.each do |square|
       if square.piece.class == Pawn and square.color != @color
-        if @color == 'white'
+        if @color == 'white' and @square.coordinates[1] == 5
           if square == @square.left
             moves.push @square.top_left
-          elsif square == @square.right
+          end
+          if square == @square.right
             moves.push @square.top_right
           end
-        elsif @color == 'black'
+        elsif @color == 'black' and @square.coordinates[1] == 4
           if square == @square.left
             moves.push @square.bot_left
-          elsif square == @square.right
+          end
+          if square == @square.right
             moves.push @square.bot_right
           end
         end
