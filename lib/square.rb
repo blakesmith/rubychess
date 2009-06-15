@@ -8,11 +8,7 @@ class Square
   end
 
   def empty?
-    if @piece.nil?
-      true
-    else
-      false
-    end
+    @piece.nil?
   end
 
   def get_grid
