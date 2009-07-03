@@ -64,8 +64,8 @@ class Board
   end
 
   def create_squares
-    for column in 1..8
-      for row in 1..8
+    1.upto(8).each do |column|
+      1.upto(8).each do |row|
         if (row.modulo(2).zero? and column.modulo(2).zero?) or (not row.modulo(2).zero? and not column.modulo(2).zero?)
           color = 'black'
         else
@@ -108,12 +108,12 @@ class Board
 
   def create_pieces
     #white pawns
-    for square in 8..15
+    8.upto(15).each do |square|
       @squares[square].piece = Pawn.new 'white'
     end
 
     #black pawns
-    for square in 48..55
+    48.upto(55).each do |square|
       @squares[square].piece = Pawn.new 'black'
     end
 
@@ -138,12 +138,12 @@ class Board
     @squares[63].piece = Rook.new 'black'
 
     #Add white square pointers to pieces
-    for square in 0..15
+    0.upto(15).each do |square|
       @squares[square].piece.square = @squares[square]
     end
     
     #Add black square pointers to pieces
-    for square in 48..63
+    48.upto(63).each do |square|
       @squares[square].piece.square = @squares[square]
     end
   end
