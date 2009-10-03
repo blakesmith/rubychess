@@ -1,13 +1,11 @@
-$LOAD_PATH << './lib/pieces'
-$LOAD_PATH << './pieces'
-
 require 'square'
-require 'pawn'
-require 'knight'
-require 'bishop'
-require 'rook'
-require 'queen'
-require 'king'
+
+require File.join(File.dirname(__FILE__), 'pieces', 'pawn')
+require File.join(File.dirname(__FILE__), 'pieces', 'knight')
+require File.join(File.dirname(__FILE__), 'pieces', 'bishop')
+require File.join(File.dirname(__FILE__), 'pieces', 'rook')
+require File.join(File.dirname(__FILE__), 'pieces', 'queen')
+require File.join(File.dirname(__FILE__), 'pieces', 'king')
 
 class Board
   attr_accessor :squares, :captured_pieces
